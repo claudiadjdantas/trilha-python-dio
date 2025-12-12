@@ -1,3 +1,4 @@
+import textwrap
 
 def deposito():
     print("Depósito")
@@ -9,17 +10,21 @@ def extrato():
     print("Extrato")
 
 
+
 def menu(): 
-    
-    menu = """
-    [d] Depositar
-    [s] Sacar
-    [e] Extrato
-    [q] Sair
+    menu = """\n
+    ======== MENU ======== \n
+    [d]\t Depositar
+    [s]\t Sacar
+    [e]\t Extrato
+    [q]\t Sair
     => """
+    return input(textwrap.dedent(menu))
+
+def main():
 
     while True:
-        opcao = input(menu)
+        opcao = menu()
 
         if opcao == "d":
             deposito()
@@ -29,14 +34,12 @@ def menu():
 
         elif opcao == "e":
             extrato()
+        
         elif opcao == "q":
             break
-
+        
         else: 
             print("Operação inválida, selecione a operação desejada.")
 
-def main():
-    print("Entrou no main")
-    menu()
 
 main()
