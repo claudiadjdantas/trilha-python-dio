@@ -1,6 +1,7 @@
 import textwrap
 
-def depositar(saldo, valor, extrato):
+#/ => positional only
+def depositar(saldo, valor, extrato, /):
     if valor > 0:
         saldo += valor
         extrato += f"Depósito:\tR${valor:.2f}\n"
