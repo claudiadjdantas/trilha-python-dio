@@ -1,6 +1,6 @@
 import textwrap
 
-#/ => positional only
+# / => positional only
 def depositar(saldo, valor, extrato, /):
     if valor > 0:
         saldo += valor
@@ -11,8 +11,29 @@ def depositar(saldo, valor, extrato, /):
 
     return saldo, extrato
 
-def sacar():
-    print("Sacar")
+#  * => keyword only
+def sacar(*,saldo, valor, extrato, limite, numero_saques, limite_saques):
+    excedeu_saldo = valor > saldo
+    excedeu_limite = valor > limite
+    excedeu_saques = numero_saques >= limite_saques
+
+    if excedeu_saldo:
+        print("\n @@@ Operação falhou! Você não tem SALDO suficiente. @@@")
+    elif excedeu_limite:
+        print("\n @@@ Operação falhou! Você excedeu o LIMITE. @@@")
+    elif excedeu_saques:
+        print("\n @@@ Operação falhou! Número total de SAQUES excedido. @@@")
+    
+    elif valor > 0:
+        saldo -= valor
+        extrato += f"Saque: \t\t R$ {valor:.2f}\n"
+        print("\n#### Saque realizado com sucesso! ####")
+        numero_saques += 1
+        # print(numero_saques)
+    else:
+        print("\n@@@ Operação falhou! O valor informado é inválido. @@@")
+
+    return saldo, extrato, numero_saques
 
 def extrato():
     print("Extrato")
@@ -48,7 +69,16 @@ def main():
             saldo, extrato =  depositar(saldo, valor, extrato)
         
         elif opcao == "s":
-            print("Sacar")
+            valor = float(input("Informe o valor do saque: "))
+
+            saldo, extrato, numero_saques = sacar(
+                saldo = saldo,
+                valor = valor,
+                extrato = extrato,
+                limite = limite,
+                numero_saques=numero_saques,
+                limite_saques=LIMITE_SAQUES,
+            )
 
         elif opcao == "e":
             print("Extrato")
