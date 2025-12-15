@@ -35,9 +35,12 @@ def sacar(*,saldo, valor, extrato, limite, numero_saques, limite_saques):
 
     return saldo, extrato, numero_saques
 
-def extrato():
-    print("Extrato")
-
+# / => positional only & * => keyword only
+def exibir_extrato(saldo, /,*,extrato):
+    print("________________________EXTRATO__________________________")
+    print("Não foram realizadas movimentações." if not extrato else extrato)
+    print(f"\nSaldo:\t\tR$ {saldo:.2f}")
+    print("_________________________________________________________")
 
 
 def menu(): 
@@ -81,7 +84,7 @@ def main():
             )
 
         elif opcao == "e":
-            print("Extrato")
+            exibir_extrato(saldo, extrato=extrato)
         
         elif opcao == "q":
             break
